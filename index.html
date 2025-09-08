@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Tasks - Persona 5 Style To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-art"></div>
+
+    <div id="introVideoContainer" class="intro-video-container">
+        <video 
+            id="introVideo"
+            src="video/video.mp4"
+            autoplay loop muted playsinline preload="auto" controls
+        ></video>
+        <button class="skip-intro-button" id="skipIntroButton">Skip Intro</button>
+    </div>
+
+    <div id="callingCardModal" class="calling-card-modal">
+        <div class="calling-card-content">
+            <span class="close-button">&times;</span>
+            <img src="img/calling.png" alt="Phantom Thieves Calling Card" class="calling-card-image">
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="logo">
+            <h1>Phantom Tasks</h1>
+            <div class="subtitle">Change your heart, complete your tasks</div>
+            <div class="phantom-thieves-tag"><span>PT</span></div>
+        </div>
+        <nav class="main-nav">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#app">App</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Take Your Time,<br>But Complete Your Tasks</h2>
+            <p>A to-do list app inspired by the stylish world of Persona 5. Organize your tasks with style and efficiency.</p>
+            <a href="#app" class="cta-button">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <div class="persona-character"></div>
+        </div>
+    </section>
+
+    <div class="section-divider top"></div>
+
+    <section id="features" class="features">
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✓</div>
+                <h3>Add Tasks</h3>
+                <p>Easily add new tasks to your list with a simple input field.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☑</div>
+                <h3>Mark Complete</h3>
+                <p>Mark tasks as completed with a satisfying check animation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">X</div>
+                <h3>Remove Tasks</h3>
+                <p>Delete tasks you no longer need with a single click.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">★</div>
+                <h3>Track Progress</h3>
+                <p>See how many tasks you've completed versus your total.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider bottom"></div>
+
+    <section id="characters" class="characters-section">
+        <h2>Phantom Thieves Roster</h2>
+        <div class="character-management">
+            <input type="text" id="characterNameInput" placeholder="Nome personaggio...">
+            <input type="text" id="characterImageInput" placeholder="URL immagine (es. img/joker.webp)...">
+            <button id="addCharacterBtn" class="persona-btn">Aggiungi Personaggio</button>
+        </div>
+        <div class="characters-grid">
+            <div class="character-card" data-id="joker">
+                <img src="img/ryuji.webp" alt="Joker">
+                <h3>Joker</h3>
+                <p>Leader of the Phantom Thieves.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="ryuji">
+                <img src="img/ryuji.webp" alt="Skull">
+                <h3>Ryuji Sakamoto (Skull)</h3>
+                <p>The rebellious ex-track star.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="morgana">
+                <img src="img/morgana.webp" alt="Mona">
+                <h3>Morgana (Mona)</h3>
+                <p>The mysterious feline companion.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="ann">
+                <img src="img/ann.png" alt="Panther">
+                <h3>Ann Takamaki (Panther)</h3>
+                <p>The charming and passionate model.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="yusuke">
+                <img src="img/yusuke.webp" alt="Fox">
+                <h3>Yusuke Kitagawa (Fox)</h3>
+                <p>The artistic and eccentric prodigy.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="makoto">
+                <img src="img/makoto.webp" alt="Queen">
+                <h3>Makoto Niijima (Queen)</h3>
+                <p>The disciplined student council president.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="futaba">
+                <img src="img/futaba.webp" alt="Navi">
+                <h3>Futaba Sakura (Oracle)</h3>
+                <p>The brilliant but reclusive hacker.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="haru">
+                <img src="img/haru.webp" alt="Noir">
+                <h3>Haru Okumura (Noir)</h3>
+                <p>The kind-hearted heiress.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+            <div class="character-card" data-id="akechi">
+                <img src="img/akechi.webp" alt="Crow">
+                <h3>Goro Akechi (Crow)</h3>
+                <p>The charismatic detective prince.</p>
+                <button class="remove-character-btn">X</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider top"></div>
+
+    <section id="app" class="app-section">
+        <h2>Your Phantom Tasks</h2>
+        <div class="app-container">
+            <div class="todo-container">
+                <div class="input-section">
+                    <input id="taskInput" placeholder="Aggiungi un nuovo compito...">
+                    <button id="addBtn" class="persona-btn">Aggiungi</button>
+                </div>
+
+                <div class="controls">
+                    <button id="clearBtn" class="persona-btn secondary">Elimina Tutto</button>
+                    <button id="markAllBtn" class="persona-btn secondary">Segna Tutto</button>
+                    <button id="removeCompletedBtn" class="persona-btn secondary">Rimuovi Completati</button>
+                </div>
+
+                <div class="task-list-container">
+                    <ul id="taskList"></ul>
+                </div>
+
+                <div class="stats">
+                    <p>Totale task: <span id="totalCount">0</span> | Completati: <span id="doneCount">0</span></p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="allOutAttackBtn" class="persona-btn all-out-btn">All-Out Attack!</button>
+
+        </div>
+    </section>
+
+    <div class="all-out-attack-overlay" id="allOutAttackOverlay"></div>
+
+    <div class="section-divider top"></div>
+
+    <section id="about" class="about">
+        <h2>About Phantom Tasks</h2>
+        <p>Inspired by the stylish UI of Persona 5, Phantom Tasks brings a touch of Phantom Thief flair to your daily task management. Stay organized while feeling like you're part of something bigger.</p>
+        <p>Remember: "Take your time. There's no need to rush."</p>
+    </section>
+
+    <div class="section-divider bottom"></div>
+
+    <section id="persona-quote" class="persona-quote">
+        <div class="quote-card">
+            <p class="quote-text">"The world is not as it should be. It's filled with distorted desires."
+            </p>
+            <p class="quote-author">— Igor, Persona 5</p>
+        </div>
+    </section>
+
+    <div class="section-divider top"></div>
+
+    <footer class="main-footer">
+        <p>Phantom Tasks &copy; 2023. Not affiliated with Atlus or Persona 5.</p>
+        <p>Developed by Biagio Scaglia 2025</p>
+    </footer>
+
+    <div class="section-divider bottom"></div>
+
+    <audio id="backgroundMusic" controls loop autoplay volume="0.3">
+        <source src="beneath_the_mask.mp3" type="audio/mpeg">
+        Il tuo browser non supporta l'elemento audio.
+    </audio>
+
+    <!-- <script src="todo_array.js"></script> -->
+    <script src="todo_map.js"></script>
+    <script src="script.js"></script> <!-- Nuovo script -->
+</body>
+</html>
