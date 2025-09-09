@@ -2,27 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const callingCardModal = document.getElementById('callingCardModal');
     const closeButton = document.querySelector('.calling-card-modal .close-button');
     const introVideoContainer = document.getElementById('introVideoContainer');
-    const introVideo = document.getElementById('introVideo'); // Riferimento all'elemento <video>
+    const introVideo = document.getElementById('introVideo');
     const body = document.body;
     const skipIntroButton = document.getElementById('skipIntroButton');
 
-    // Funzione per mostrare il contenuto principale del sito
     const showMainContent = () => {
         body.classList.remove('hide-main-content');
         if (callingCardModal) {
             callingCardModal.style.display = 'none';
         }
-        // Ferma il video quando il contenuto principale viene mostrato
         if (introVideo) {
             introVideo.pause();
         }
     };
 
-    // Funzione per mostrare il modale della Calling Card
     const showCallingCard = () => {
         if (introVideoContainer) {
             introVideoContainer.style.display = 'none';
-            // Ferma il video quando il modale viene mostrato
             if (introVideo) {
                 introVideo.pause();
             }
@@ -32,22 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Inizializza il sito: mostra il video, nascondi modale e contenuto principale
     if (introVideoContainer) {
-        body.classList.add('hide-main-content'); // Nascondi il contenuto principale
-        introVideoContainer.style.display = 'flex'; // Mostra il contenitore del video
+        body.classList.add('hide-main-content');
+        introVideoContainer.style.display = 'flex';
         if (callingCardModal) {
             callingCardModal.style.display = 'none';
         }
-        // Avvia la riproduzione del video (l'autoplay è già gestito dall'attributo)
-        // introVideo.play().catch(error => { ... }); // Rimosso, autoplay gestito da attributo
     }
 
-    // Gestione chiusura modale Calling Card
     const handleModalClose = () => {
         if (callingCardModal) {
             callingCardModal.style.display = 'none';
-            showMainContent(); // Mostra il contenuto principale dopo la chiusura del modale
+            showMainContent();
         }
     };
 
@@ -61,28 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Gestione skip video con il pulsante
     if (skipIntroButton) {
         skipIntroButton.addEventListener('click', showCallingCard);
     }
 
-    // Gestione fine video: mostra la Calling Card
     if (introVideo) {
         introVideo.addEventListener('ended', showCallingCard);
     }
 
-    // Gestione skip modale con Enter (mantiene questa funzionalità)
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             if (introVideoContainer && introVideoContainer.style.display === 'flex') {
-                showCallingCard(); // Skippa il video con Enter
+                showCallingCard();
             } else if (callingCardModal && callingCardModal.style.display === 'flex') {
-                handleModalClose(); // Chiude il modale con Enter
+                handleModalClose();
             }
         }
     });
 
-    // Funzionalità All-Out Attack (esistente)
     const allOutAttackBtn = document.getElementById('allOutAttackBtn');
     const allOutAttackOverlay = document.getElementById('allOutAttackOverlay');
 
@@ -99,17 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Funzionalità per la gestione dei personaggi
 const characterNameInput = document.getElementById('characterNameInput');
 const characterImageInput = document.getElementById('characterImageInput');
 const addCharacterBtn = document.getElementById('addCharacterBtn');
 const charactersGrid = document.querySelector('.characters-grid');
 
-// Carica i personaggi da localStorage o usa quelli predefiniti
 let characters = new Map(JSON.parse(localStorage.getItem('phantomTasksCharacters') || '[]'));
 
 if (characters.size === 0) {
-    // Aggiungi personaggi predefiniti solo se non ce ne sono in localStorage
     addDefaultCharacter('joker', 'Joker', 'img/joker.webp', 'Leader of the Phantom Thieves.');
     addDefaultCharacter('ryuji', 'Ryuji Sakamoto (Skull)', 'img/ryuji.webp', 'The rebellious ex-track star.');
     addDefaultCharacter('morgana', 'Morgana (Mona)', 'img/morgana.webp', 'The mysterious feline companion.');
@@ -133,7 +118,7 @@ function saveCharacters() {
 }
 
 function renderCharacters() {
-    charactersGrid.innerHTML = ''; // Pulisce la griglia corrente
+    charactersGrid.innerHTML = '';
     characters.forEach((char, id) => {
         const card = document.createElement('div');
         card.classList.add('character-card');
@@ -146,7 +131,6 @@ function renderCharacters() {
             <button class="remove-character-btn">X</button>
         `;
 
-        // Aggiungi listener per il pulsante di rimozione
         const removeBtn = card.querySelector('.remove-character-btn');
         removeBtn.addEventListener('click', () => removeCharacter(id));
 
@@ -157,7 +141,7 @@ function renderCharacters() {
 function addCharacter() {
     const name = characterNameInput.value.trim();
     let imageUrl = characterImageInput.value.trim();
-    const description = ""; // Puoi espandere per aggiungere anche la descrizione
+    const description = "";
 
     if (!name) {
         alert('Il nome del personaggio non può essere vuoto!');
@@ -165,10 +149,10 @@ function addCharacter() {
     }
 
     if (!imageUrl) {
-        imageUrl = 'https://via.placeholder.com/150x200.png?text=No+Image'; // Placeholder se l'URL è vuoto
+        imageUrl = 'https://via.placeholder.com/150x200.png?text=No+Image';
     }
 
-    const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-'); // Genera un ID semplice
+    const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
     if (characters.has(id)) {
         alert('Un personaggio con questo nome esiste già!');
         return;
@@ -191,5 +175,36 @@ function removeCharacter(id) {
 
 addCharacterBtn.addEventListener('click', addCharacter);
 
-// Inizializza il rendering dei personaggi al caricamento
 renderCharacters();
+
+async function postData() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: 'Persona 5',
+                body: 'persona 5 è un gioco di ruolo',
+                userId: 1
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Success:', data);
+        document.getElementById('post-response').innerHTML = `
+            <h3>Infiltrato! Dati acquisiti dal Metaverso:</h3>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+            <p>Missione compiuta! Il messaggio è stato inviato e la volontà è stata cambiata.</p>
+        `;
+    } catch (error) {
+        console.error('Errore nella trasmissione! Contatta i Phantom Thieves:', error);
+    }
+}
+
+postData();

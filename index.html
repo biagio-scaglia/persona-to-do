@@ -16,7 +16,7 @@
         <video 
             id="introVideo"
             src="video/video.mp4"
-            autoplay loop muted playsinline preload="auto" controls
+            autoplay loop muted playsinline preload="auto"
         ></video>
         <button class="skip-intro-button" id="skipIntroButton">Skip Intro</button>
     </div>
@@ -140,7 +140,7 @@
             </div>
             <div class="character-card" data-id="akechi">
                 <img src="img/akechi.webp" alt="Crow">
-                <h3>Goro Akechi (Crow)</h3>
+                <h3>Goro Akechi</h3>
                 <p>The charismatic detective prince.</p>
                 <button class="remove-character-btn">X</button>
             </div>
@@ -156,6 +156,21 @@
                 <div class="input-section">
                     <input id="taskInput" placeholder="Aggiungi un nuovo compito...">
                     <button id="addBtn" class="persona-btn">Aggiungi</button>
+                </div>
+                <div class="controls">
+                    <label for="sortOrder">Ordina per:</label>
+                    <select id="sortOrder">
+                        <option value="date-desc">Data (più recente)</option>
+                        <option value="date-asc">Data (meno recente)</option>
+                        <option value="status">Stato</option>
+                    </select>
+                    <label for="filterStatus">Filtra per:</label>
+                    <select id="filterStatus">
+                        <option value="all">Tutti</option>
+                        <option value="completed">Completati</option>
+                        <option value="pending">In Sospeso</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Cerca compito...">
                 </div>
 
                 <div class="controls">
@@ -204,7 +219,7 @@
     <div class="section-divider top"></div>
 
     <footer class="main-footer">
-        <p>Phantom Tasks &copy; 2023. Not affiliated with Atlus or Persona 5.</p>
+        <p>Phantom Tasks &copy; 2025. Not affiliated with Atlus or Persona 5.</p>
         <p>Developed by Biagio Scaglia 2025</p>
     </footer>
 
@@ -215,8 +230,9 @@
         Il tuo browser non supporta l'elemento audio.
     </audio>
 
-    <!-- <script src="todo_array.js"></script> -->
-    <script src="todo_map.js"></script>
-    <script src="script.js"></script> <!-- Nuovo script -->
+    <!-- <script src="todo_map.js"></script> -->
+    <script src="todo_array.js"></script>
+    <script src="script.js"></script>
+    <div id="post-response"></div>
 </body>
 </html>
