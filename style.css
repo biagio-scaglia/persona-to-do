@@ -1436,7 +1436,7 @@ li button:last-of-type:hover {
 }
 
 body.hide-main-content > *:not(#introVideoContainer):not(#callingCardModal) {
-    display: none;
+    display: block;
 }
 
 @keyframes fadeInListItem {

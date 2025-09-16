@@ -1,6 +1,4 @@
-type TodosImpl = 'array' | 'map';
-
-function resolvePreferredImpl(): TodosImpl {
+function resolvePreferredImpl() {
     const params = new URLSearchParams(window.location.search);
     const urlChoice = params.get('todos');
     if (urlChoice === 'array' || urlChoice === 'map') {
@@ -13,9 +11,8 @@ function resolvePreferredImpl(): TodosImpl {
     }
     return 'array';
 }
-
-function loadScriptSequentially(src: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+function loadScriptSequentially(src) {
+    return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.src = src;
         script.async = false;
@@ -24,25 +21,25 @@ function loadScriptSequentially(src: string): Promise<void> {
         document.body.appendChild(script);
     });
 }
-
-async function bootstrap(): Promise<void> {
-    const impl: TodosImpl = resolvePreferredImpl();
+async function bootstrap() {
+    const impl = resolvePreferredImpl();
     const implSrc = impl === 'map' ? 'todo_map.js' : 'todo_array.js';
-
     await loadScriptSequentially(implSrc);
     await loadScriptSequentially('script.js');
     if (document.readyState !== 'loading') {
         document.dispatchEvent(new Event('DOMContentLoaded'));
     }
     const ensureShown = () => {
-        const bodyEl = document.body as HTMLBodyElement;
-        const intro = document.getElementById('introVideoContainer') as HTMLDivElement | null;
-        const modal = document.getElementById('callingCardModal') as HTMLDivElement | null;
-        if (intro) intro.style.display = 'none';
-        if (modal) modal.style.display = 'none';
+        const bodyEl = document.body;
+        const intro = document.getElementById('introVideoContainer');
+        const modal = document.getElementById('callingCardModal');
+        if (intro)
+            intro.style.display = 'none';
+        if (modal)
+            modal.style.display = 'none';
         bodyEl.classList.remove('hide-main-content');
     };
-    const skipBtn = document.getElementById('skipIntroButton') as HTMLButtonElement | null;
+    const skipBtn = document.getElementById('skipIntroButton');
     if (skipBtn) {
         skipBtn.addEventListener('click', ensureShown);
     }
@@ -52,7 +49,6 @@ async function bootstrap(): Promise<void> {
         }
     }, 2000);
 }
-
 bootstrap().catch(err => {
     console.error('Bootstrap error:', err);
 });
