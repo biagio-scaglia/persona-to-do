@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const introVideo = document.getElementById('introVideo');
     const body = document.body;
     const skipIntroButton = document.getElementById('skipIntroButton');
-
     const showMainContent = () => {
         body.classList.remove('hide-main-content');
         if (callingCardModal) {
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             introVideo.pause();
         }
     };
-
     const showCallingCard = () => {
         if (introVideoContainer) {
             introVideoContainer.style.display = 'none';
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
             callingCardModal.style.display = 'flex';
         }
     };
-
     if (introVideoContainer) {
         body.classList.add('hide-main-content');
         introVideoContainer.style.display = 'flex';
@@ -35,50 +32,42 @@ document.addEventListener('DOMContentLoaded', () => {
             callingCardModal.style.display = 'none';
         }
     }
-
     const handleModalClose = () => {
         if (callingCardModal) {
             callingCardModal.style.display = 'none';
             showMainContent();
         }
     };
-
     if (closeButton) {
         closeButton.addEventListener('click', handleModalClose);
     }
-
     window.addEventListener('click', (event) => {
-        if (event.target == callingCardModal) {
+        if (event.target === callingCardModal) {
             handleModalClose();
         }
     });
-
     if (skipIntroButton) {
         skipIntroButton.addEventListener('click', showCallingCard);
     }
-
     if (introVideo) {
         introVideo.addEventListener('ended', showCallingCard);
     }
-
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             if (introVideoContainer && introVideoContainer.style.display === 'flex') {
                 showCallingCard();
-            } else if (callingCardModal && callingCardModal.style.display === 'flex') {
+            }
+            else if (callingCardModal && callingCardModal.style.display === 'flex') {
                 handleModalClose();
             }
         }
     });
-
     const allOutAttackBtn = document.getElementById('allOutAttackBtn');
     const allOutAttackOverlay = document.getElementById('allOutAttackOverlay');
-
     if (allOutAttackBtn && allOutAttackOverlay) {
         allOutAttackBtn.addEventListener('click', () => {
             allOutAttackOverlay.style.display = 'block';
             allOutAttackOverlay.classList.add('active');
-            
             allOutAttackOverlay.addEventListener('animationend', () => {
                 allOutAttackOverlay.classList.remove('active');
                 allOutAttackOverlay.style.display = 'none';
@@ -86,14 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
 const characterNameInput = document.getElementById('characterNameInput');
 const characterImageInput = document.getElementById('characterImageInput');
 const addCharacterBtn = document.getElementById('addCharacterBtn');
 const charactersGrid = document.querySelector('.characters-grid');
-
 let characters = new Map(JSON.parse(localStorage.getItem('phantomTasksCharacters') || '[]'));
-
 if (characters.size === 0) {
     addDefaultCharacter('joker', 'Joker', 'img/joker.webp', 'Leader of the Phantom Thieves.');
     addDefaultCharacter('ryuji', 'Ryuji Sakamoto (Skull)', 'img/ryuji.webp', 'The rebellious ex-track star.');
@@ -105,66 +91,56 @@ if (characters.size === 0) {
     addDefaultCharacter('haru', 'Haru Okumura (Noir)', 'img/haru.webp', 'The kind-hearted heiress.');
     addDefaultCharacter('akechi', 'Goro Akechi (Crow)', 'img/akechi.webp', 'The charismatic detective prince.');
 }
-
 function addDefaultCharacter(id, name, imageUrl, description) {
     if (!characters.has(id)) {
         characters.set(id, { name, imageUrl, description });
         saveCharacters();
     }
 }
-
 function saveCharacters() {
     localStorage.setItem('phantomTasksCharacters', JSON.stringify(Array.from(characters.entries())));
 }
-
 function renderCharacters() {
     charactersGrid.innerHTML = '';
     characters.forEach((char, id) => {
         const card = document.createElement('div');
         card.classList.add('character-card');
         card.dataset.id = id;
-
         card.innerHTML = `
-            <img src="${char.imageUrl}" alt="${char.name}" onerror="this.src='https://via.placeholder.com/150x200.png?text=No+Image';">
-            <h3>${char.name}</h3>
-            <p>${char.description}</p>
-            <button class="remove-character-btn">X</button>
-        `;
-
+			<img src="${char.imageUrl}" alt="${char.name}" onerror="this.src='https://via.placeholder.com/150x200.png?text=No+Image';">
+			<h3>${char.name}</h3>
+			<p>${char.description}</p>
+			<button class="remove-character-btn">X</button>
+		`;
         const removeBtn = card.querySelector('.remove-character-btn');
-        removeBtn.addEventListener('click', () => removeCharacter(id));
-
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => removeCharacter(id));
+        }
         charactersGrid.appendChild(card);
     });
 }
-
 function addCharacter() {
     const name = characterNameInput.value.trim();
     let imageUrl = characterImageInput.value.trim();
-    const description = "";
-
+    const description = '';
     if (!name) {
         alert('Il nome del personaggio non può essere vuoto!');
         return;
     }
-
     if (!imageUrl) {
         imageUrl = 'https://via.placeholder.com/150x200.png?text=No+Image';
     }
-
     const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
     if (characters.has(id)) {
         alert('Un personaggio con questo nome esiste già!');
         return;
     }
-
     characters.set(id, { name, imageUrl, description });
     saveCharacters();
     renderCharacters();
     characterNameInput.value = '';
     characterImageInput.value = '';
 }
-
 function removeCharacter(id) {
     if (confirm('Sei sicuro di voler rimuovere questo personaggio?')) {
         characters.delete(id);
@@ -172,11 +148,8 @@ function removeCharacter(id) {
         renderCharacters();
     }
 }
-
 addCharacterBtn.addEventListener('click', addCharacter);
-
 renderCharacters();
-
 async function postData() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -190,21 +163,22 @@ async function postData() {
                 userId: 1
             })
         });
-
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const data = await response.json();
         console.log('Success:', data);
-        document.getElementById('post-response').innerHTML = `
-            <h3>Infiltrato! Dati acquisiti dal Metaverso:</h3>
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-            <p>Missione compiuta! Il messaggio è stato inviato e la volontà è stata cambiata.</p>
-        `;
-    } catch (error) {
+        const postResponse = document.getElementById('post-response');
+        if (postResponse) {
+            postResponse.innerHTML = `
+				<h3>Infiltrato! Dati acquisiti dal Metaverso:</h3>
+				<pre>${JSON.stringify(data, null, 2)}</pre>
+				<p>Missione compiuta! Il messaggio è stato inviato e la volontà è stata cambiata.</p>
+			`;
+        }
+    }
+    catch (error) {
         console.error('Errore nella trasmissione! Contatta i Phantom Thieves:', error);
     }
 }
-
 postData();

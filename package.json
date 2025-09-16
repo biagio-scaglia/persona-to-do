@@ -1,0 +1,26 @@
+{
+  "name": "progetto-finale",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "start index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biagio-scaglia/persona-to-do.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/biagio-scaglia/persona-to-do/issues"
+  },
+  "homepage": "https://github.com/biagio-scaglia/persona-to-do#readme",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
